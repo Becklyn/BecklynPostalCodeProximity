@@ -10,12 +10,37 @@ use Becklyn\PostalCodeProximity\Entity\PostalCodeDetails;
  */
 class QueryGenerator
 {
+
+
+    /**
+     * @var string
+     */
     private $tableName;
+
+
+    /**
+     * @var string
+     */
     private $latitudeColumn;
+
+
+    /**
+     * @var string
+     */
     private $longitudeColumn;
+
+
+    /**
+     * @var string
+     */
     private $postalCodeColumn;
 
+
+    /**
+     *
+     */
     const KM_PER_DEGREE_LATITUDE = 111.045;
+
 
 
     /**
@@ -26,7 +51,7 @@ class QueryGenerator
      * @param string $longitudeColumn
      * @param string $postalCodeColumn
      */
-    public function __construct ($tableName, $latitudeColumn = "lat", $longitudeColumn = "lng", $postalCodeColumn = "zip")
+    public function __construct ($tableName, $latitudeColumn = "latitude", $longitudeColumn = "longitude", $postalCodeColumn = "postal_code")
     {
         $this->tableName        = $tableName;
         $this->latitudeColumn   = $latitudeColumn;
@@ -35,6 +60,14 @@ class QueryGenerator
     }
 
 
+
+    /**
+     * @param PostalCodeDetails $postalCodeDetails
+     * @param int|float         $radius
+     * @param int|null          $limit
+     *
+     * @return string
+     */
     public function getNearPostalCodesByRadiusQuery (PostalCodeDetails $postalCodeDetails, $radius, $limit = null)
     {
         $latitudeMin  = $postalCodeDetails->getLatitude() - ($radius / self::KM_PER_DEGREE_LATITUDE);
