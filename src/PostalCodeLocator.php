@@ -42,6 +42,12 @@ class PostalCodeLocator
     public function loadNearPostalCodes ($postalCode, $radius, $limit = null)
     {
         $postalCodeDetails = $this->loadPostalCodeDetails($postalCode);
+
+        if (null === $postalCodeDetails)
+        {
+            return [];
+        }
+
         return $this->adapter->loadNearPostalCodesByRadius($postalCodeDetails, $radius, $limit);
     }
 
@@ -62,6 +68,10 @@ class PostalCodeLocator
         if (1 < count($details))
         {
             throw new AmbiguousPostalCodeException("Multiple postal code entries with value '{$postalCode}' found.");
+        }
+        else if (0 === count($details))
+        {
+            return null;
         }
 
         return reset($details);
