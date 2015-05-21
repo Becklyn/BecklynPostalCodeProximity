@@ -58,7 +58,7 @@ class PostalCodeLocator
      *
      * @param $postalCode
      *
-     * @return PostalCodeDetails
+     * @return PostalCodeDetails|null
      * @throws AmbiguousPostalCodeException
      */
     private function loadPostalCodeDetails ($postalCode)
